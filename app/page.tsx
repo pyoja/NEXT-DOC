@@ -8,10 +8,11 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1>Hello, Next.js!</h1>
-      <h2>
-        <Link href="/dashboard">Dashboard</Link>
-      </h2>
+      <div>
+        <h1>홈페이지</h1>
+        <p>이 링크를 클릭하면 대시보드의 설정 섹션으로 이동합니다.</p>
+        <Link href="/dashboard#letsgo">Go to Settings</Link>
+      </div>
     </>
   );
 }
