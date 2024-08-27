@@ -5,25 +5,14 @@ export const metadata: Metadata = {
   title: "NEXT.JS 공식문서 따라하기",
 };
 
-export default function Page({
-  team,
-  analytics,
-}: {
-  team: React.ReactNode;
-  analytics: React.ReactNode;
-}) {
+export default function Page() {
   return (
     <>
       <div>
         <h1>홈페이지</h1>
-        <p>이 링크를 클릭하면 대시보드의 설정 섹션으로 이동합니다.</p>
-        <Link href="/dashboard">대시보드</Link>
-        <br />
-        <Link href="/dashboard#letsgo">Go to Settings</Link>
-      </div>
-      <div style={{ display: "flex", gap: "20px" }}>
-        {team}
-        {analytics}
+        <p>이 링크를 클릭하면 로그인 또는 회원가입 모달이 나타납니다.</p>
+        <Link href="/?modal=login">로그인</Link>
+        <Link href="/?modal=signup">회원가입</Link>
       </div>
     </>
   );
