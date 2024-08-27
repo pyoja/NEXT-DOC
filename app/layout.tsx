@@ -1,4 +1,4 @@
-import { NavLinks } from "@/app/ui/nav-links";
+import { NavLinks } from "./(test)/ui/nav-links";
 
 export default function RootLayout({
   children,

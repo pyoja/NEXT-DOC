@@ -11,6 +11,8 @@ export default function Page() {
       <div>
         <h1>홈페이지</h1>
         <p>이 링크를 클릭하면 대시보드의 설정 섹션으로 이동합니다.</p>
+        <Link href="/dashboard">대시보드</Link>
+        <br />
         <Link href="/dashboard#letsgo">Go to Settings</Link>
       </div>
     </>
