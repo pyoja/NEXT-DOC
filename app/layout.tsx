@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Next Doc Master",
+};
+
 export default function RootLayout({
   children,
 }: {
