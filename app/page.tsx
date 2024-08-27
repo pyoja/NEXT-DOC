@@ -5,7 +5,13 @@ export const metadata: Metadata = {
   title: "NEXT.JS 공식문서 따라하기",
 };
 
-export default function Page() {
+export default function Page({
+  team,
+  analytics,
+}: {
+  team: React.ReactNode;
+  analytics: React.ReactNode;
+}) {
   return (
     <>
       <div>
@@ -14,6 +20,10 @@ export default function Page() {
         <Link href="/dashboard">대시보드</Link>
         <br />
         <Link href="/dashboard#letsgo">Go to Settings</Link>
+      </div>
+      <div style={{ display: "flex", gap: "20px" }}>
+        {team}
+        {analytics}
       </div>
     </>
   );
