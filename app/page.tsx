@@ -39,6 +39,39 @@ export default function Home() {
     };
   };
 
+  const openYouTubePopup = () => {
+    const youtubeUrl = "https://www.youtube.com/embed/7d97N8zgEDg"; // Replace with your YouTube video ID
+    const popup = window.open(
+      "",
+      "YouTubePopup",
+      `width=800,height=450,resizable=yes`
+    );
+
+    if (popup) {
+      popup.document.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>YouTube Video</title>
+        </head>
+        <body style="margin:0;display:flex;align-items:center;justify-content:center;background-color:#000;">
+          <iframe
+            width="100%"
+            height="100%"
+            src="${youtubeUrl}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </body>
+        </html>
+      `);
+      popup.document.close();
+    }
+  };
+
   return (
     <div>
       <h1>홈페이지</h1>
@@ -49,6 +82,13 @@ export default function Home() {
         style={{ marginTop: "20px", padding: "10px 20px", cursor: "pointer" }}
       >
         비디오 보기
+      </button>
+      <br />
+      <button
+        onClick={openYouTubePopup}
+        style={{ marginTop: "20px", padding: "10px 20px", cursor: "pointer" }}
+      >
+        유튜브 보기
       </button>
     </div>
   );
