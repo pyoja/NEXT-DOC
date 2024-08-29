@@ -27,3 +27,12 @@ export type FormState =
       message?: string;
     }
   | undefined;
+
+export type SessionPayload = {
+  userId: string; // 사용자 ID
+  username: string; // 사용자 이름
+  email: string; // 사용자 이메일
+  roles: string[]; // 사용자 역할 (예: ["admin", "user"])
+  createdAt: Date; // 세션 생성 시간
+  expiresAt: Date; // 세션 만료 시간
+};
