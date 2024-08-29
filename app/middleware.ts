@@ -1,35 +1,39 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { decrypt } from "@/app/lib/session";
+import { cookies } from "next/headers";
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+// 1. Specify protected and public routes
+const protectedRoutes = ["/dashboard"];
+const publicRoutes = ["/login", "/signup", "/"];
 
-  // 모든 요청에 대해 로그 남기기
-  console.log(`Request to ${pathname}`);
+export default async function middleware(req: NextRequest) {
+  // 2. Check if the current route is protected or public
+  const path = req.nextUrl.pathname;
+  const isProtectedRoute = protectedRoutes.includes(path);
+  const isPublicRoute = publicRoutes.includes(path);
 
-  // '/admin' 경로에 대한 간단한 인증 체크
-  if (pathname.startsWith("/admin")) {
-    const isAuth = request.nextUrl.searchParams.get("auth") === "true";
-    if (!isAuth) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
+  // 3. Decrypt the session from the cookie
+  const cookie = cookies().get("session")?.value;
+  const session = await decrypt(cookie);
+
+  // 5. Redirect to /login if the user is not authenticated
+  if (isProtectedRoute && !session?.userId) {
+    return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  // '/photo' 경로에 대한 헤더 추가
-  if (pathname.startsWith("/photo")) {
-    const response = NextResponse.next();
-    response.headers.set("x-photo-custom-header", "photo-page");
-    return response;
+  // 6. Redirect to /dashboard if the user is authenticated
+  if (
+    isPublicRoute &&
+    session?.userId &&
+    !req.nextUrl.pathname.startsWith("/dashboard")
+  ) {
+    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
   }
 
   return NextResponse.next();
 }
 
-// 미들웨어를 적용할 경로 설정
+// Routes Middleware should not run on
 export const config = {
-  matcher: [
-    "/admin/:path*",
-    "/photo/:path*",
-    "/((?!api|_next/static|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };
